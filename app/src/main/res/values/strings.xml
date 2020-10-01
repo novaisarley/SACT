@@ -2,4 +2,8 @@
     <string name="app_name">SACT</string>
     <string name="cpf">CPF</string>
     <string name="entrar">Entrar</string>
+    <string name="nome_do_projeto">Nome Do Projeto</string>
+    <string name="integrantes">Integrantes</string>
+    <string name="area_atucao">Área de atuação</string>
+    <string name="observacoes">Observações</string>
 </resources>

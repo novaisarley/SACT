@@ -1,6 +1,6 @@
 package com.br.arley.sact.model;
 
-public class Subtopic {
+public class Criterion {
     String title;
     String score;
 }

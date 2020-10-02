@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@drawable/borda_input">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/segoeui"
+        android:text="Você já concluiu todas as suas fichas de avaliações!"
+        android:textAlignment="center"
+        android:textColor="@color/textGray"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoeui"
+        android:text="Você não pode navegar na aplicação!"
+        android:textAlignment="center"
+        android:textColor="@color/textGray"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoeui"
+        android:text="Venha conhecer os outros projetos presentes na feira!"
+        android:textAlignment="center"
+        android:textColor="@color/textGray"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/dialog_all_evaluation_done_bt_ok"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/borda_button"
+        android:fontFamily="@font/segoeui"
+        android:text="@android:string/ok"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</LinearLayout>

@@ -110,8 +110,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoeui"
-                android:gravity="center"
                 android:text="@string/nome_do_projeto"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="30sp" />
 
@@ -120,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/segoeui"
-                android:gravity="center"
                 android:text="@string/integrantes"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="27sp" />
 
@@ -130,8 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:text="Débora Colhyer\nIsabella Malo\nFlávia Eloisa"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="15sp" />
 
@@ -140,8 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/segoeui"
-                android:gravity="center"
                 android:text="@string/area_atucao"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="27sp" />
 
@@ -150,8 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:text="Informática"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="15sp" />
 
@@ -160,21 +160,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/segoeui"
-                android:gravity="center"
                 android:text="@string/observacoes"
+                android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="27sp" />
 
+
+
             <TextView
-                android:id="@+id/activity_about_tv_observations"
+                android:id="@+id/activity_about_tv_observatis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
                 android:paddingHorizontal="30dp"
                 android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
+                android:layout_marginBottom="150dp"
                 android:textSize="15sp" />
 
 

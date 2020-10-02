@@ -7,4 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- New MaterialComponents attributes. -->
+
 </resources>

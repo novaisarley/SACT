@@ -3,6 +3,7 @@ package com.br.arley.sact.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,8 @@ import com.br.arley.sact.R;
 
 public class ProjectInfoActivity extends AppCompatActivity {
 
-    ImageButton btBack, btStartEvaluation;
+    ImageButton btBack;
+    Button btStartEvaluation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,19 +30,6 @@
         app:srcCompat="@drawable/ic_back"
         tools:ignore="VectorDrawableCompat" />
 
-    <ImageButton
-        android:id="@+id/activity_project_info_bt_next"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline43"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:srcCompat="@drawable/ic_next"
-        tools:ignore="VectorDrawableCompat" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline40"
         android:layout_width="wrap_content"
@@ -104,6 +91,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
 
             <TextView
                 android:id="@+id/activity_about_tv_name"
@@ -176,13 +165,33 @@
                 android:layout_marginTop="5dp"
                 android:paddingHorizontal="40dp"
                 android:fontFamily="@font/segoeui"
+                android:layout_marginBottom="200dp"
                 android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
-                android:layout_marginBottom="150dp"
                 android:textSize="15sp" />
 
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/activity_project_info_bt_next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/borda_button"
+        android:text="Iniciar Avaliação"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:fontFamily="@font/segoeui"
+        android:textStyle="bold"
+        android:textSize="21sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline43"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        tools:ignore="VectorDrawableCompat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

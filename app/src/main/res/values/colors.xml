@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimaryDark">#0000B6</color>
     <color name="colorAccent">#404040</color>
     <color name="warmGray">#707070</color>
     <color name="textGray">#676060</color>
     <color name="buttonBlue">#0000fb</color>
+    <color name="gradDarkBlue">#0303f8</color>
+    <color name="gradLightBlue">#36bfd5</color>
+    <color name="gradDarkGreen">#00fc08</color>
+    <color name="gradLightGreen">#aeffb0</color>
 </resources>

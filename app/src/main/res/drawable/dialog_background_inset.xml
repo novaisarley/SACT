@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable is a reference to your 'real' dialog background -->
+<!-- insetRight and insetLeft add the margins -->
+<inset
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/borda_dialog"
+    android:insetRight="30dp"
+    android:insetLeft="30dp"
+    android:insetTop="10dp"
+    android:insetBottom="10dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+</inset>

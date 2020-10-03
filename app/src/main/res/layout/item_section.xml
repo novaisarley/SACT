@@ -3,15 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="end"
     android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1. Projeto e Pesquisa"/>
+        android:layout_gravity="start"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_section_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeui"
+            android:text="1."
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/item_section_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeui"
+            android:layout_marginLeft="10dp"
+            android:text="Projeto e Pesquisa"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_section_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_gravity="end"/>
 
 
 </LinearLayout>

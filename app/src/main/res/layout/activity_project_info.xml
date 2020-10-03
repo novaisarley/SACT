@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/activity_about_bt_back"
+        android:id="@+id/activity_project_info_bt_back"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
@@ -31,7 +31,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <ImageButton
-        android:id="@+id/activity_about_bt_next"
+        android:id="@+id/activity_project_info_bt_next"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
@@ -130,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/segoeui"
                 android:text="Débora Colhyer\nIsabella Malo\nFlávia Eloisa"
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
@@ -151,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Informática"
+                android:fontFamily="@font/segoeui"
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
                 android:textSize="15sp" />
@@ -172,7 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:paddingHorizontal="30dp"
+                android:paddingHorizontal="40dp"
+                android:fontFamily="@font/segoeui"
                 android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
                 android:textAlignment="center"
                 android:textColor="@color/textGray"

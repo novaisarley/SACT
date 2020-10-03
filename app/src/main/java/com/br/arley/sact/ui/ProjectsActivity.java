@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.br.arley.sact.R;
@@ -36,6 +37,13 @@ public class ProjectsActivity extends AppCompatActivity {
         recyclerViewProjects = findViewById(R.id.activity_projects_recycler_view);
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(this));
         projectAdapter = new ProjectRecyclerViewAdapter(projectList);
+
+        projectAdapter.setOnItemClickListener(new ProjectRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onProjectClick(int position) {
+                startActivity(new Intent(ProjectsActivity.this, ProjectInfoActivity.class));
+            }
+        });
 
         recyclerViewProjects.setAdapter(projectAdapter);
 

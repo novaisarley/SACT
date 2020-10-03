@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:background="@drawable/borda_input">
+    android:background="@drawable/dialog_background_inset"
+    android:orientation="vertical"
+    android:paddingHorizontal="40dp"
+    android:paddingVertical="25dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/segoeui"
-        android:text="Parabéns"
+        android:text="PARABÉNS"
         android:textAlignment="center"
         android:textColor="@color/textGray"
-        android:textSize="22sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/segoeui"
+        android:lineHeight="30dp"
         android:text="Você concluiu todas as suas fichas de avaliações!"
         android:textAlignment="center"
         android:textColor="@color/textGray"
-        android:textSize="20sp" />
+        android:textSize="23sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="25dp"
+        android:lineHeight="30dp"
         android:fontFamily="@font/segoeui"
         android:text="Venha conhecer os outros projetos presentes na feira!"
         android:textAlignment="center"
         android:textColor="@color/textGray"
-        android:textSize="20sp" />
+        android:textSize="23sp" />
 
     <Button
         android:id="@+id/dialog_all_evaluation_done_bt_ok"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/borda_button"
         android:fontFamily="@font/segoeui"

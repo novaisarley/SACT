@@ -9,23 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.RatingFormActivity"
+            >
+
 
         </activity>
-        <activity android:name=".ui.RatingFormActivity" />
         <activity
             android:name=".ui.ProjectsActivity"
-            android:screenOrientation="portrait" />
+            />
         <activity
-            android:name=".ui.ProjectInfoActivity"
-            android:screenOrientation="portrait">
+            android:name=".ui.ProjectInfoActivity">
 
         </activity>
 
         <activity
-            android:name=".ui.LoginActivity"
-            android:screenOrientation="portrait">
-
+            android:name=".ui.LoginActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

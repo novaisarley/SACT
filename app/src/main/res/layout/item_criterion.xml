@@ -18,9 +18,10 @@
             android:id="@+id/item_criterion_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/textGray"
             android:layout_marginRight="10dp"
             android:text="1.1. Delimitação clara do problema"
-            android:fontFamily="@font/segoeui"
+            android:fontFamily="@font/seguisb"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -37,17 +38,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/item_criterion_grade"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textColor="@color/textGray"
                 android:background="@drawable/borda_input"
                 android:fontFamily="@font/segoeui"
                 android:minWidth="80dp"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:text="6.0"
                 android:textAlignment="center"
-                android:textSize="28sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 

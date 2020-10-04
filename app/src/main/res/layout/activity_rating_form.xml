@@ -38,6 +38,7 @@
         android:fontFamily="@font/seguisb"
         android:gravity="center"
         android:lineHeight="30dp"
+        android:textColor="@color/textGray"
         android:text="@string/ficha_de_avaliacao"
         android:textAlignment="center"
         android:textSize="25sp"

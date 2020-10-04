@@ -19,7 +19,8 @@
             android:id="@+id/item_section_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/segoeui"
+            android:fontFamily="@font/seguisb"
+            android:textColor="@color/textGray"
             android:text="1."
             android:textSize="30sp" />
 
@@ -27,7 +28,8 @@
             android:id="@+id/item_section_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/segoeui"
+            android:fontFamily="@font/seguisb"
+            android:textColor="@color/textGray"
             android:layout_marginLeft="10dp"
             android:text="Projeto e Pesquisa"
             android:textSize="28sp" />

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".ui.ProjectInfoActivity">
+
+
 
 
     <ImageView
@@ -102,7 +105,7 @@
                 android:text="@string/nome_do_projeto"
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
-                android:textSize="30sp" />
+                android:textSize="32sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -157,7 +160,6 @@
                 android:textSize="27sp" />
 
 
-
             <TextView
                 android:id="@+id/activity_about_tv_observatis"
                 android:layout_width="match_parent"
@@ -174,6 +176,16 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#E6FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/activity_project_info_bt_next" />
 
     <Button
         android:id="@+id/activity_project_info_bt_next"

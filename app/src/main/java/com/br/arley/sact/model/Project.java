@@ -6,6 +6,9 @@ public class Project {
     private String course;
     private String[] members;
 
+    public Project() {
+    }
+
     public Project(String name, String classroom, String course, String[] members) {
         this.name = name;
         this.classroom = classroom;

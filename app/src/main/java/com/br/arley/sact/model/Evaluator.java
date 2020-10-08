@@ -1,71 +1,86 @@
+
 package com.br.arley.sact.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Evaluator {
-
     private String id;
+
     private String name;
-    private String occupation_area;
+
+    @SerializedName("occupation_area")
+    private String occupationArea;
+
     private String institution;
-    private String phone_number;
+
+    @SerializedName("phone_number")
+    private String phoneNumber;
+
     private String email;
+
     private String cpf;
+
     private String status;
-    private String created_at;
-    private String updated_at;
 
-    public Evaluator() {
-    }
+    @SerializedName("created_at")
+    private String createdAt;
 
-    public Evaluator(String id, String name, String occupation_area, String institution, String phone_number, String email, String cpf, String status, String created_at, String updated_at) {
-        this.id = id;
-        this.name = name;
-        this.occupation_area = occupation_area;
-        this.institution = institution;
-        this.phone_number = phone_number;
-        this.email = email;
-        this.cpf = cpf;
-        this.status = status;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-    }
+    @SerializedName("updated_at")
+    private String updatedAt;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public String getName() {
-        return name;
-    }
+    public void setId(String value) { this.id = value; }
 
-    public String getOccupation_area() {
-        return occupation_area;
-    }
+    public String getName() { return name; }
 
-    public String getInstitution() {
-        return institution;
-    }
+    public void setName(String value) { this.name = value; }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
+    public String getOccupationArea() { return occupationArea; }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setOccupationArea(String value) { this.occupationArea = value; }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public String getInstitution() { return institution; }
 
-    public String getStatus() {
-        return status;
-    }
+    public void setInstitution(String value) { this.institution = value; }
 
-    public String getCreated_at() {
-        return created_at;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public void setPhoneNumber(String value) { this.phoneNumber = value; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String value) { this.email = value; }
+
+    public String getCpf() { return cpf; }
+
+    public void setCpf(String value) { this.cpf = value; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String value) { this.status = value; }
+
+    public String getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(String value) { this.createdAt = value; }
+
+    public String getUpdatedAt() { return updatedAt; }
+
+    public void setUpdatedAt(String value) { this.updatedAt = value; }
+
+    @Override
+    public String toString() {
+        return "Evaluator{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", occupationArea='" + occupationArea + '\'' +
+                ", institution='" + institution + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", status='" + status + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

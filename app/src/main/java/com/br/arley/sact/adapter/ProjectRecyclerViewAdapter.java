@@ -24,7 +24,6 @@ public class ProjectRecyclerViewAdapter extends RecyclerView.Adapter<ProjectRecy
 
     public interface OnItemClickListener{
         void onProjectClick(int position);
-
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -82,6 +81,8 @@ public class ProjectRecyclerViewAdapter extends RecyclerView.Adapter<ProjectRecy
         holder.tvName.setText(projectList.get(position).getName());
         holder.tvClassroom.setText(projectList.get(position).getClassroom());
         holder.tvCourse.setText(projectList.get(position).getCourse());
+
+
         for (int i = 0; i < projectList.get(position).getMembers().length; i++) {
 
             if (i==0) members = list[i];

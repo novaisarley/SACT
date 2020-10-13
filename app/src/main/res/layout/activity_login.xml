@@ -31,24 +31,21 @@
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:srcCompat="@drawable/logo" />
 
-    <com.br.arley.sact.model.CpfEditText
-        android:id="@+id/activty_login_edt_cpf"
+    <EditText
+        android:id="@+id/activty_login_edt_email"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="52dp"
         android:background="@drawable/borda_input"
         android:elevation="5dp"
         android:fontFamily="@font/segoeui"
-        android:gravity="center|start"
-        android:hint="@string/cpf"
-        android:inputType="number"
-        android:padding="10dp"
-        android:shadowColor="#9C666666"
-        android:shadowRadius="100"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="15dp"
         android:textAlignment="textStart"
         android:textColorHint="@color/warmGray"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
@@ -93,5 +90,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.73" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_login"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:elevation="20dp"
+        android:indeterminateTint="#0303D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

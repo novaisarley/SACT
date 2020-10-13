@@ -10,10 +10,11 @@ import retrofit2.http.Path;
 
 public interface SactServer {
 
-    @GET("posts/")
+    @GET("/posts")
     Call<List<Project>> getProjects();
 
-    @POST("evaluators/sessions/")
-    Call<AuthData> authenticateEvaluator(@Body String cpf);
+    @POST("/evaluators/sessions")
+    Call<AuthData> authenticateEvaluatorByEmail(@Body String email);
+
 
 }

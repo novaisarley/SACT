@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,14 +21,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.br.arley.sact.model.AuthData;
-import com.br.arley.sact.model.CpfVerifier;
 import com.br.arley.sact.model.SactServer;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
     Button btLogin;
-    Retrofit retrofit;
-    TextView tvCpf;
+    Retrofit retrofitSact;
+    EditText edtEmail;
+    ProgressBar pb;
     SactServer sactServer;
 
     @Override
@@ -34,55 +40,78 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         btLogin = findViewById(R.id.activty_login_bt_login);
-        tvCpf = findViewById(R.id.activty_login_edt_cpf);
+        edtEmail = findViewById(R.id.activty_login_edt_email);
+        pb = findViewById(R.id.progressBar_login);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://virtserver.swaggerhub.com/lorenzowind/SACT/1.0.0/")
+        pb.setVisibility(View.INVISIBLE);
+
+        retrofitSact = new Retrofit.Builder()
+                .baseUrl("http://ec2-18-219-59-120.us-east-2.compute.amazonaws.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        sactServer = retrofit.create(SactServer.class);
+
+        sactServer = retrofitSact.create(SactServer.class);
+
+
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String formatada = tvCpf.getText().toString().replace(".", "");
-                formatada = formatada.replace("-", "");
+                /*String email = edtEmail.getText().toString();
 
-                if (/*CpfVerifier.isCPF(formatada)*/true){
-                    authenticateUser(formatada);
+                if (email.contains("@")) {
+                    btLogin.setClickable(false);
+                    pb.setVisibility(View.VISIBLE);
+                    Log.d("Autentica", email);
+                    authenticateUser(email);
 
-                }else Toast.makeText(LoginActivity.this, "CPF Inválido", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Email Inválido", Toast.LENGTH_SHORT).show();
+                }*/
+                authenticateUser("arley@gmail.com");
 
             }
         });
 
     }
 
-    private void authenticateUser(String cpf){
-        Call<AuthData> call = sactServer.authenticateEvaluator(cpf);
+    private void authenticateUser(String email) {
+
+        Call<AuthData> call = sactServer.authenticateEvaluatorByEmail(email);
 
 
         call.enqueue(new Callback<AuthData>() {
             @Override
             public void onResponse(Call<AuthData> call, Response<AuthData> response) {
-                if (!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "ERROR_CODE: " + response.code(), Toast.LENGTH_SHORT).show();
+                    btLogin.setClickable(true);
+                    pb.setVisibility(View.INVISIBLE);
                     return;
                 }
-                if (response.body().getEvaluator().getCpf().replace(".", "").replace("-", "").equals(cpf)){
+                if (response.body().getEvaluator().getEmail().equals(email)) {
                     startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+                    pb.setVisibility(View.INVISIBLE);
                     finish();
-                }else Toast.makeText(LoginActivity.this, "Avaliador não encontrado", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Avaliador não encontrado", Toast.LENGTH_SHORT).show();
+                    btLogin.setClickable(true);
+                    pb.setVisibility(View.INVISIBLE);
+                }
 
             }
 
             @Override
             public void onFailure(Call<AuthData> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Falha de comunicação com o servidor", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                btLogin.setClickable(true);
+                pb.setVisibility(View.INVISIBLE);
             }
         });
 
 
     }
+
+
 }

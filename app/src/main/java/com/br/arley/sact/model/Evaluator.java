@@ -18,8 +18,6 @@ public class Evaluator {
 
     private String email;
 
-    private String cpf;
-
     private String status;
 
     @SerializedName("created_at")
@@ -52,10 +50,6 @@ public class Evaluator {
 
     public void setEmail(String value) { this.email = value; }
 
-    public String getCpf() { return cpf; }
-
-    public void setCpf(String value) { this.cpf = value; }
-
     public String getStatus() { return status; }
 
     public void setStatus(String value) { this.status = value; }
@@ -77,7 +71,6 @@ public class Evaluator {
                 ", institution='" + institution + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", cpf='" + cpf + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

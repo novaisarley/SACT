@@ -75,18 +75,17 @@ public class ProjectRecyclerViewAdapter extends RecyclerView.Adapter<ProjectRecy
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String members = "";
-        String[] list = projectList.get(position).getMembers();
+        String members = projectList.get(position).getMembers();
+        String[] list = members.split(",");
 
         holder.tvName.setText(projectList.get(position).getName());
         holder.tvClassroom.setText(projectList.get(position).getClassroom());
-        holder.tvCourse.setText(projectList.get(position).getCourse());
+        holder.tvCourse.setText(projectList.get(position).getOccupationArea());
 
-
-        for (int i = 0; i < projectList.get(position).getMembers().length; i++) {
+        for (int i = 0; i < list.length; i++) {
 
             if (i==0) members = list[i];
-            else members += "\n" + list[i];
+            else members += "\n" + list[i].trim();
             holder.tvMembers.setText(members);
         }
 

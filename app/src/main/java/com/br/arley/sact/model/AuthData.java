@@ -1,7 +1,12 @@
 package com.br.arley.sact.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class AuthData {
     private Evaluator evaluator;
+
     private String token;
 
     public Evaluator getEvaluator() {

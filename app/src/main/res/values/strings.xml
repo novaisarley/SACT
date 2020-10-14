@@ -9,4 +9,8 @@
     <string name="ficha_de_avaliacao">FICHA DE AVALIAÇÃO</string>
     <string name="concluir">Concluir</string>
     <string name="email">Email</string>
+    <string name="pref_login">LOGIN_DONE</string>
+    <string name="pref_key">app_preferences</string>
+    <string name="current_evaluator_token">TOKEN_CURRENT</string>
+    <string name="current_evaluator_id">USER_ID_CURRENT</string>
 </resources>

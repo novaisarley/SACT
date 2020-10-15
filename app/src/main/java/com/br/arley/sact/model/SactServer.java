@@ -22,6 +22,7 @@ public interface SactServer {
     @POST("/evaluators/sessions")
     Call<AuthData> authenticateEvaluatorByEmail(@Body Email email);
 
-    
+    @POST("/grades")
+    Call<AuthData> createSetOfGrades(@Header("Authorization") String token, @Body GradeData gradeData);
 
 }

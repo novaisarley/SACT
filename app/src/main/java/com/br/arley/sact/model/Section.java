@@ -2,8 +2,9 @@ package com.br.arley.sact.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Section {
+public class Section{
     String title;
     List<Criterion> criterionList;
 
@@ -37,10 +38,24 @@ public class Section {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return title.equals(section.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, criterionList);
+    }
+
+    @Override
     public String toString() {
         return "\n"+ "Section{" +
                 "title='" + title + "',\n" +
                 " criterionList=" + criterionList +
                 '}' + "\n";
     }
+
 }

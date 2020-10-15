@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class RatingFormActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ImageButton btBack;
+    Button btFinish;
     SectionRecyclerViewAdapter sectionRecyclerViewAdapter;
     ArrayList<Section> sectionList;
     ArrayList<Criterion> criterionList;
@@ -128,12 +130,13 @@ public class RatingFormActivity extends AppCompatActivity {
     void organizeQuestions(List<Question> questions){
         List<Question> questionList = questions;
         List<Section> sections = new ArrayList<>();
-//        List<Criterion> criterions = new ArrayList<>();
+//      List<Criterion> criterions = new ArrayList<>();
 
-        //do{
             for (Question q : questionList){
+
                 Section s = new Section(q.getSection());
                 ArrayList<Criterion> criterionList = new ArrayList<>();
+
                 for (int i = 0; i < questionList.size(); i++){
                     if (questionList.get(i).getSection().equals(q.getSection())){
                         Criterion c = new Criterion(questionList.get(i).getId(), questionList.get(i).getCriterion());
@@ -141,13 +144,24 @@ public class RatingFormActivity extends AppCompatActivity {
                         //questionList.remove(i);
                     }
                 }
+
                 s.setCriterionList(criterionList);
                 sections.add(s);
             }
-        //}while (!questionList.isEmpty());
-        buildRecyclerView(sections);
 
-        Log.d("Sections", sections.toString());
+
+            List<Section> listSemRepetidos = new ArrayList<>();
+
+            for (Section section : sections) {
+                if (!listSemRepetidos.contains(section)) {
+                    listSemRepetidos.add(section);
+                }
+            }
+
+
+        buildRecyclerView(listSemRepetidos);
+
+        Log.d("Sections", listSemRepetidos.toString());
 
     }
 }

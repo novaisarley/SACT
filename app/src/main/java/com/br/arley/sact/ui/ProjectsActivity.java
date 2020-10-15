@@ -124,9 +124,16 @@ public class ProjectsActivity extends AppCompatActivity {
         projectAdapter.setOnItemClickListener(new ProjectRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onProjectClick(int position) {
-                Intent intent = new Intent(ProjectsActivity.this, ProjectInfoActivity.class);
-                intent.putExtra("avaliation", avaliationList.get(position));
-                startActivity(intent);
+
+                if (avaliationList.get(position).getStatus().equals("to_evaluate")){
+                    Intent intent = new Intent(ProjectsActivity.this, ProjectInfoActivity.class);
+                    intent.putExtra("avaliation", avaliationList.get(position));
+                    startActivity(intent);
+                }else if (avaliationList.get(position).getStatus().equals("rated")){
+                    Toast.makeText(ProjectsActivity.this, "Projeto já avaliado!"
+                            , Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

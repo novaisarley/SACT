@@ -2,11 +2,15 @@ package com.br.arley.sact.model;
 
 public class Criterion {
     String title;
-    String score;
+    String grade;
 
-    public Criterion(String title, String score) {
+    public Criterion(){
+
+    }
+
+    public Criterion(String title, String grade) {
         this.title = title;
-        this.score = score;
+        this.grade = grade;
     }
 
     public String getTitle() {
@@ -17,11 +21,11 @@ public class Criterion {
         this.title = title;
     }
 
-    public String getScore() {
-        return score;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }

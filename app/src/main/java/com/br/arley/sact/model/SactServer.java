@@ -16,6 +16,9 @@ public interface SactServer {
             @Path("evaluator_id") String evaluatorId,
             @Header("Authorization") String token);
 
+    @GET("/questions/all")
+    Call<List<Question>> getQuestions(@Header("Authorization") String token);
+
     @POST("/evaluators/sessions")
     Call<AuthData> authenticateEvaluatorByEmail(@Body Email email);
 

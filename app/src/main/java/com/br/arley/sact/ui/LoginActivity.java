@@ -100,8 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                 String token = authData.getToken();
                 String id = authData.getEvaluator().getId();
 
-                Log.d("DADOS", "Token: " +token + "\n Id: " + id);
-
                 //GUARDAR AVALIADOR
                 setLoginStatus(true);
                 setCurrentUserPref(token, id);
@@ -129,15 +127,14 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean(getString(R.string.pref_login), b);
         editor.apply();
     }
-    void setCurrentUserPref(String token, String userId){
+
+    void setCurrentUserPref(String token, String userId) {
         sharedPreferences = getSharedPreferences(getString(R.string.pref_key), MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString(getString(R.string.current_evaluator_token), token);
         editor.putString(getString(R.string.current_evaluator_id), userId);
         editor.apply();
     }
-
-
 
 
 }

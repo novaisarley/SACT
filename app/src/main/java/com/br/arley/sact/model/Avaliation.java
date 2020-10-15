@@ -1,5 +1,8 @@
 package com.br.arley.sact.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 @Entity
-public class Avaliation {
+public class Avaliation implements Parcelable {
 
     @PrimaryKey(autoGenerate = false)
     private String id;
@@ -33,6 +36,45 @@ public class Avaliation {
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
     private String updatedAt;
+
+
+    protected Avaliation(Parcel in) {
+        id = in.readString();
+        evaluatorId = in.readString();
+        projectId = in.readString();
+        project = in.readParcelable(Project.class.getClassLoader());
+        status = in.readString();
+        createdAt = in.readString();
+        updatedAt = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(evaluatorId);
+        dest.writeString(projectId);
+        dest.writeParcelable(project, flags);
+        dest.writeString(status);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Avaliation> CREATOR = new Creator<Avaliation>() {
+        @Override
+        public Avaliation createFromParcel(Parcel in) {
+            return new Avaliation(in);
+        }
+
+        @Override
+        public Avaliation[] newArray(int size) {
+            return new Avaliation[size];
+        }
+    };
 
     public String getId() {
         return id;

@@ -1,8 +1,11 @@
 package com.br.arley.sact.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Project {
+public class Project implements Parcelable {
 
     private String id;
 
@@ -38,6 +41,50 @@ public class Project {
         this.occupationArea = occupationArea;
         this.members = members;
     }
+
+    protected Project(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        description = in.readString();
+        occupationArea = in.readString();
+        classroom = in.readString();
+        members = in.readString();
+        observations = in.readString();
+        imageURL = in.readString();
+        createdAt = in.readString();
+        updatedAt = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(occupationArea);
+        dest.writeString(classroom);
+        dest.writeString(members);
+        dest.writeString(observations);
+        dest.writeString(imageURL);
+        dest.writeString(createdAt);
+        dest.writeString(updatedAt);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Project> CREATOR = new Creator<Project>() {
+        @Override
+        public Project createFromParcel(Parcel in) {
+            return new Project(in);
+        }
+
+        @Override
+        public Project[] newArray(int size) {
+            return new Project[size];
+        }
+    };
 
     public String getId() {
         return id;

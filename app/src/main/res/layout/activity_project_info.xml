@@ -96,7 +96,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/activity_about_tv_name"
+                android:id="@+id/activity_aproject_info_tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoeui"
@@ -116,11 +116,12 @@
                 android:textSize="27sp" />
 
             <TextView
-                android:id="@+id/activity_about_tv_members"
+                android:id="@+id/activity_project_info_tv_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/segoeui"
+                android:lineHeight="25dp"
                 android:text="Débora Colhyer\nIsabella Malo\nFlávia Eloisa"
                 android:textAlignment="center"
                 android:textColor="@color/textGray"
@@ -137,7 +138,7 @@
                 android:textSize="27sp" />
 
             <TextView
-                android:id="@+id/activity_about_tv_course"
+                android:id="@+id/activity_project_info_tv_occupation_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -159,60 +160,13 @@
 
 
             <TextView
-                android:id="@+id/activity_about_tv_os"
+                android:id="@+id/activity_project_info_tv_observations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:paddingHorizontal="40dp"
                 android:fontFamily="@font/segoeui"
-                android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
-                android:textAlignment="center"
-                android:textColor="@color/textGray"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/activity_about_tv_obs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="40dp"
-                android:fontFamily="@font/segoeui"
-                android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
-                android:textAlignment="center"
-                android:textColor="@color/textGray"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/activity_about_tv_obser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/segoeui"
-                android:paddingHorizontal="40dp"
-                android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
-                android:textAlignment="center"
-                android:textColor="@color/textGray"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/activity_about_tv_observati"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="40dp"
-                android:fontFamily="@font/segoeui"
-                android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
-                android:textAlignment="center"
-                android:textColor="@color/textGray"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/activity_about_tv_observat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="40dp"
-                android:fontFamily="@font/segoeui"
+                android:lineHeight="25dp"
                 android:text="Este projeto trata de uma solução de software para o interno da Fundação Matias Machline, que pretende auxiliar com eficiência o planejamento e organização das avaliações dos projetos de conclusão de curso."
                 android:textAlignment="center"
                 android:textColor="@color/textGray"

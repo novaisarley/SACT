@@ -6,6 +6,10 @@ public class Section {
     String title;
     ArrayList<Criterion> criterionList;
 
+    public Section(){
+
+    }
+
     public Section(String title, ArrayList<Criterion> criterionList) {
         this.title = title;
         this.criterionList = criterionList;

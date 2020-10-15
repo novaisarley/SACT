@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.br.arley.sact.R;
@@ -35,6 +37,7 @@ public class ProjectsActivity extends AppCompatActivity {
     List<Project> projectList;
     Retrofit retrofit;
     SactServer sactServer;
+    ProgressBar progressBar;
     AppDatabase database;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -45,6 +48,8 @@ public class ProjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_projects);
 
         setComponentsId();
+
+        progressBar = findViewById(R.id.progressBar_projects);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -77,6 +82,8 @@ public class ProjectsActivity extends AppCompatActivity {
 
         Call<List<Avaliation>> call = sactServer.getAvaliationsByEvaluatorId(evaluatorId, "Bearer "+token);
 
+        progressBar.setVisibility(View.VISIBLE);
+
         call.enqueue(new Callback<List<Avaliation>>() {
             @Override
             public void onResponse(Call<List<Avaliation>> call, Response<List<Avaliation>> response) {
@@ -88,18 +95,14 @@ public class ProjectsActivity extends AppCompatActivity {
                 }
 
                 List<Avaliation> avaliationsList = response.body();
-                List<Project> projects = new ArrayList<>();
 
                 if (!avaliationsList.isEmpty()){
-                    for (Avaliation a : avaliationsList){
-                        projects.add(a.getProject());
-                    }
-                    buildRecyclerView(projects);
+                    buildRecyclerView(avaliationsList);
                 }
-
-                Toast.makeText(ProjectsActivity.this, "Size: "+ avaliationsList.size()
-                        , Toast.LENGTH_LONG).show();
-
+                else {
+                    Toast.makeText(ProjectsActivity.this, "Nenhum projeto atribuído ao avaliador"
+                            , Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -114,18 +117,22 @@ public class ProjectsActivity extends AppCompatActivity {
         recyclerViewProjects = findViewById(R.id.activity_projects_recycler_view);
     }
 
-    void buildRecyclerView(List<Project> projectList){
+    void buildRecyclerView(List<Avaliation> avaliationList){
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(this));
-        projectAdapter = new ProjectRecyclerViewAdapter(projectList);
+        projectAdapter = new ProjectRecyclerViewAdapter(avaliationList, ProjectsActivity.this);
 
         projectAdapter.setOnItemClickListener(new ProjectRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onProjectClick(int position) {
-                startActivity(new Intent(ProjectsActivity.this, ProjectInfoActivity.class));
+                Intent intent = new Intent(ProjectsActivity.this, ProjectInfoActivity.class);
+                intent.putExtra("avaliation", avaliationList.get(position));
+                startActivity(intent);
             }
         });
 
         recyclerViewProjects.setAdapter(projectAdapter);
+
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     void setLoginStatus(boolean b) {

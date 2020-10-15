@@ -4,19 +4,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Rating;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.br.arley.sact.R;
 import com.br.arley.sact.adapter.ProjectRecyclerViewAdapter;
 import com.br.arley.sact.adapter.SectionRecyclerViewAdapter;
+import com.br.arley.sact.model.Avaliation;
+import com.br.arley.sact.model.Constants;
+import com.br.arley.sact.model.Question;
+import com.br.arley.sact.model.SactServer;
 import com.br.arley.sact.model.Section;
 import com.br.arley.sact.model.Criterion;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RatingFormActivity extends AppCompatActivity {
 
@@ -25,11 +40,18 @@ public class RatingFormActivity extends AppCompatActivity {
     SectionRecyclerViewAdapter sectionRecyclerViewAdapter;
     ArrayList<Section> sectionList;
     ArrayList<Criterion> criterionList;
+    Retrofit retrofit;
+    SactServer sactServer;
+    Avaliation avaliation;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_form);
+
+        avaliation = getIntent().getExtras().getParcelable("avaliation");
 
         recyclerView = findViewById(R.id.activity_rating_form_rv);
         btBack = findViewById(R.id.activity_rating_form_bt_back);
@@ -41,10 +63,21 @@ public class RatingFormActivity extends AppCompatActivity {
             }
         });
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        sactServer = retrofit.create(SactServer.class);
+
+        String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
+
+        getAllQuestions("Bearer " + token);
+
         sectionList = new ArrayList<>();
         criterionList = new ArrayList<>();
 
-        for (int j = 0; j < 5; j++){
+        for (int j = 0; j < 2; j++){
             Criterion c = new Criterion("1.1. Oralidade", "6.0");
             criterionList.add(c);
         }
@@ -59,5 +92,46 @@ public class RatingFormActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(sectionRecyclerViewAdapter);
 
+    }
+
+    void getAllQuestions(String token){
+        Call<List<Question>> call = sactServer.getQuestions(token);
+
+        call.enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(RatingFormActivity.this, "Code: "+ response.code() + response.message()
+                            , Toast.LENGTH_LONG).show();
+
+                    return;
+                }
+                Log.d("Questions", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+                Toast.makeText(RatingFormActivity.this, t.getMessage()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    String getEspecifcUserPref(String pref){
+        sharedPreferences = getSharedPreferences(getString(R.string.pref_key), Context.MODE_PRIVATE);
+        String value = sharedPreferences.getString(pref, "");
+
+        return value;
+    }
+
+    void organizeQuestions(List<Question> questions){
+        List<Question> questionList = questions;
+        List<Section> sections = new ArrayList<>();
+        List<Criterion> criterions = new ArrayList<>();
+
+        for (int i = 0; i < questions.size(); i++){
+            Section s = new Section();
+            s.setTitle(questionList.get(i).getSection());
+        }
     }
 }

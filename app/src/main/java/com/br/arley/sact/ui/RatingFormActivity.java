@@ -5,9 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Rating;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.br.arley.sact.R;
-import com.br.arley.sact.adapter.ProjectRecyclerViewAdapter;
 import com.br.arley.sact.adapter.SectionRecyclerViewAdapter;
 import com.br.arley.sact.model.Avaliation;
 import com.br.arley.sact.model.Constants;
@@ -78,7 +75,7 @@ public class RatingFormActivity extends AppCompatActivity {
         criterionList = new ArrayList<>();
 
         for (int j = 0; j < 2; j++){
-            Criterion c = new Criterion("1.1. Oralidade", "6.0");
+            Criterion c = new Criterion("6.0", "1.1. Oralidade");
             criterionList.add(c);
         }
 
@@ -87,11 +84,14 @@ public class RatingFormActivity extends AppCompatActivity {
             sectionList.add(s);
         }
 
+        //buildRecyclerView(sectionList);
+
+    }
+
+    void buildRecyclerView(List<Section> sections){
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        sectionRecyclerViewAdapter = new SectionRecyclerViewAdapter(sectionList, this);
-
+        sectionRecyclerViewAdapter = new SectionRecyclerViewAdapter(sections, this);
         recyclerView.setAdapter(sectionRecyclerViewAdapter);
-
     }
 
     void getAllQuestions(String token){
@@ -107,6 +107,7 @@ public class RatingFormActivity extends AppCompatActivity {
                     return;
                 }
                 Log.d("Questions", response.body().toString());
+                organizeQuestions(response.body());
             }
 
             @Override
@@ -127,11 +128,26 @@ public class RatingFormActivity extends AppCompatActivity {
     void organizeQuestions(List<Question> questions){
         List<Question> questionList = questions;
         List<Section> sections = new ArrayList<>();
-        List<Criterion> criterions = new ArrayList<>();
+//        List<Criterion> criterions = new ArrayList<>();
 
-        for (int i = 0; i < questions.size(); i++){
-            Section s = new Section();
-            s.setTitle(questionList.get(i).getSection());
-        }
+        //do{
+            for (Question q : questionList){
+                Section s = new Section(q.getSection());
+                ArrayList<Criterion> criterionList = new ArrayList<>();
+                for (int i = 0; i < questionList.size(); i++){
+                    if (questionList.get(i).getSection().equals(q.getSection())){
+                        Criterion c = new Criterion(questionList.get(i).getId(), questionList.get(i).getCriterion());
+                        criterionList.add(c);
+                        //questionList.remove(i);
+                    }
+                }
+                s.setCriterionList(criterionList);
+                sections.add(s);
+            }
+        //}while (!questionList.isEmpty());
+        buildRecyclerView(sections);
+
+        Log.d("Sections", sections.toString());
+
     }
 }

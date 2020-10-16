@@ -9,9 +9,16 @@ public class GradeData {
     @SerializedName("avaliation_id")
     String avaliationId;
 
-    String comments;
+    String comments = "";
 
     List<Grade> grades;
+
+    public GradeData() {
+    }
+
+    public GradeData(String avaliationId) {
+        this.avaliationId = avaliationId;
+    }
 
     public String getAvaliationId() {
         return avaliationId;
@@ -35,5 +42,14 @@ public class GradeData {
 
     public void setGrades(List<Grade> grades) {
         this.grades = grades;
+    }
+
+    @Override
+    public String toString() {
+        return "\n\n" + "GradeData{" +
+                "avaliationId='" + avaliationId + "' , \n" +
+                "comments='" + comments + "' ,\n" +
+                "grades=" + grades + "\n" +
+                '}';
     }
 }

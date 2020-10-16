@@ -21,7 +21,6 @@ public class CriterionRecyclerViewAdapter extends RecyclerView.Adapter<Criterion
 
     public List<Criterion> criterionList;
 
-
     public CriterionRecyclerViewAdapter(List<Criterion> criterionList){
         this.criterionList = criterionList;
     }
@@ -39,7 +38,6 @@ public class CriterionRecyclerViewAdapter extends RecyclerView.Adapter<Criterion
 
         }
     }
-
 
     @NonNull
     @Override
@@ -61,6 +59,7 @@ public class CriterionRecyclerViewAdapter extends RecyclerView.Adapter<Criterion
                 float gradeF = (float)progress/10;
                 String gradeS = Float.toString(gradeF);
                 holder.tvGrade.setText(gradeS);
+                criterionList.get(position).setGrade(gradeS);
             }
 
             @Override

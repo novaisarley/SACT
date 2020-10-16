@@ -7,7 +7,15 @@ public class Grade {
     @SerializedName("question_id")
     String questionId;
 
-    String grade;
+    float grade;
+
+    public Grade() {
+    }
+
+    public Grade(String questionId, float grade) {
+        this.questionId = questionId;
+        this.grade = grade;
+    }
 
     public String getQuestionId() {
         return questionId;
@@ -17,11 +25,19 @@ public class Grade {
         this.questionId = questionId;
     }
 
-    public String getGrade() {
+    public float getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(float grade) {
         this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "\n\t" + "Grade{" +  "\n" +
+                "\t\tquestionId='" + questionId + "' ,\n" +
+                "\t\tgrade='" + grade + "'\n" +
+                "\t" + '}' + "\n";
     }
 }

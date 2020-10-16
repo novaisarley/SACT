@@ -2,6 +2,7 @@ package com.br.arley.sact.model;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -23,6 +24,6 @@ public interface SactServer {
     Call<AuthData> authenticateEvaluatorByEmail(@Body Email email);
 
     @POST("/grades")
-    Call<AuthData> createSetOfGrades(@Header("Authorization") String token, @Body GradeData gradeData);
+    Call<ResponseBody> createSetOfGrades(@Header("Authorization") String token, @Body GradeData gradeData);
 
 }

@@ -23,6 +23,8 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
     public List<Section> sectionList;
     Context context;
 
+
+
     public SectionRecyclerViewAdapter(List<Section> sectionList, Context context){
         this.sectionList = sectionList;
         this.context = context;
@@ -68,6 +70,10 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
     @Override
     public int getItemCount() {
         return sectionList.size();
+    }
+
+    public List<Section> getSectionList() {
+        return sectionList;
     }
 
 

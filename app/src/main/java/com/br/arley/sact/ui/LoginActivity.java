@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!response.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LoginActivity.this, "Avaliador não encontrado", Toast.LENGTH_SHORT).show();
                     btLogin.setClickable(true);
                     pb.setVisibility(View.INVISIBLE);
                     return;

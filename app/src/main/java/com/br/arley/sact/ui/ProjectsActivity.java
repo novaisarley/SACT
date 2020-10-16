@@ -51,18 +51,9 @@ public class ProjectsActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar_projects);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        sactServer = retrofit.create(SactServer.class);
-
         //database = AppDatabase.getInstance(ProjectsActivity.this);
 
-        String id = getEspecifcUserPref(getString(R.string.current_evaluator_id));
-        String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
-        getAvaluations(id, token);
+
 
         projectList = new ArrayList<>();
 
@@ -102,6 +93,7 @@ public class ProjectsActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(ProjectsActivity.this, "Nenhum projeto atribuído ao avaliador"
                             , Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -163,5 +155,20 @@ public class ProjectsActivity extends AppCompatActivity {
         return value;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        sactServer = retrofit.create(SactServer.class);
+
+        String id = getEspecifcUserPref(getString(R.string.current_evaluator_id));
+        String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
+        getAvaluations(id, token);
+
+
+    }
 }

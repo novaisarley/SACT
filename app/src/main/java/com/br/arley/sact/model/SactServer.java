@@ -24,6 +24,6 @@ public interface SactServer {
     Call<AuthData> authenticateEvaluatorByEmail(@Body Email email);
 
     @POST("/grades")
-    Call<ResponseBody> createSetOfGrades(@Header("Authorization") String token, @Body GradeData gradeData);
+    Call<Response> createSetOfGrades(@Header("Authorization") String token, @Body GradeData gradeData);
 
 }

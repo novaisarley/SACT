@@ -6,26 +6,28 @@ import java.util.List;
 
 public class GradeData {
 
-    @SerializedName("avaliation_id")
-    String avaliationId;
+    String avaliation_id;
 
-    String comments = "";
+    String comments;
 
     List<Grade> grades;
 
     public GradeData() {
+        this.comments = " ";
     }
 
-    public GradeData(String avaliationId) {
-        this.avaliationId = avaliationId;
+    public GradeData(String avaliation_id) {
+        super();
+        this.avaliation_id = avaliation_id;
+
     }
 
-    public String getAvaliationId() {
-        return avaliationId;
+    public String getAvaliation_id() {
+        return avaliation_id;
     }
 
-    public void setAvaliationId(String avaliationId) {
-        this.avaliationId = avaliationId;
+    public void setAvaliation_id(String avaliation_id) {
+        this.avaliation_id = avaliation_id;
     }
 
     public String getComments() {
@@ -42,14 +44,5 @@ public class GradeData {
 
     public void setGrades(List<Grade> grades) {
         this.grades = grades;
-    }
-
-    @Override
-    public String toString() {
-        return "\n\n" + "GradeData{" +
-                "avaliationId='" + avaliationId + "' , \n" +
-                "comments='" + comments + "' ,\n" +
-                "grades=" + grades + "\n" +
-                '}';
     }
 }

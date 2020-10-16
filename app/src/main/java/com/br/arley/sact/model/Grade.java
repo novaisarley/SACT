@@ -4,25 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Grade {
 
-    @SerializedName("question_id")
-    String questionId;
+    String question_id;
 
     float grade;
 
     public Grade() {
     }
 
-    public Grade(String questionId, float grade) {
-        this.questionId = questionId;
+    public Grade(String question_id, float grade) {
+        this.question_id = question_id;
         this.grade = grade;
     }
 
-    public String getQuestionId() {
-        return questionId;
+    public String getQuestion_id() {
+        return question_id;
     }
 
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
+    public void setQuestion_id(String question_id) {
+        this.question_id = question_id;
     }
 
     public float getGrade() {
@@ -31,13 +30,5 @@ public class Grade {
 
     public void setGrade(float grade) {
         this.grade = grade;
-    }
-
-    @Override
-    public String toString() {
-        return "\n\t" + "Grade{" +  "\n" +
-                "\t\tquestionId='" + questionId + "' ,\n" +
-                "\t\tgrade='" + grade + "'\n" +
-                "\t" + '}' + "\n";
     }
 }

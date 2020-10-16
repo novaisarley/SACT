@@ -22,6 +22,7 @@ import com.br.arley.sact.model.Constants;
 import com.br.arley.sact.model.Grade;
 import com.br.arley.sact.model.GradeData;
 import com.br.arley.sact.model.Question;
+import com.br.arley.sact.model.RetrofitConfig;
 import com.br.arley.sact.model.SactServer;
 import com.br.arley.sact.model.Section;
 import com.br.arley.sact.model.Criterion;
@@ -60,17 +61,13 @@ public class RatingFormActivity extends AppCompatActivity {
 
         setComponents();
 
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         btConclude.setClickable(false);
 
         setComponentsListeners();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        sactServer = retrofit.create(SactServer.class);
+        RetrofitConfig retrofitConfig = RetrofitConfig.getInstance();
+        sactServer = retrofitConfig.getSactServer();
 
         String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
 
@@ -99,11 +96,12 @@ public class RatingFormActivity extends AppCompatActivity {
                 List<Grade> grades = new ArrayList<>();
 
                 GradeData gradeData = new GradeData(avaliation.getId());
-                for (Section s : sections){
-                    for (Criterion c : s.getCriterionList()){
+                for (Section s : sections) {
+                    for (Criterion c : s.getCriterionList()) {
                         grades.add(new Grade(c.getId(), Float.parseFloat(c.getGrade())));
                     }
                 }
+                gradeData.setComments(" ");
                 gradeData.setGrades(grades);
 
                 String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
@@ -136,10 +134,34 @@ public class RatingFormActivity extends AppCompatActivity {
         recyclerView.setAdapter(sectionRecyclerViewAdapter);
     }
 
-    void createSetOfGrades(String token, GradeData gradeData){
-        Call<ResponseBody> call = sactServer.createSetOfGrades(token, gradeData);
+    void createSetOfGrades(String token, GradeData gradeData) {
+        Call<com.br.arley.sact.model.Response> call = sactServer.createSetOfGrades(token, gradeData);
 
-        call.enqueue(new Callback<ResponseBody>() {
+
+        call.enqueue(new Callback<com.br.arley.sact.model.Response>() {
+            @Override
+            public void onResponse(Call<com.br.arley.sact.model.Response> call, Response<com.br.arley.sact.model.Response> response) {
+                if (!response.isSuccessful()) {
+                    //Log.d("Response", response.body().getMessage() + " " + response.body().getStatus());
+                    Toast.makeText(RatingFormActivity.this, "Code: " + response.code() + response.message()
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                Toast.makeText(RatingFormActivity.this, "Sucesso", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(RatingFormActivity.this, ProjectsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onFailure(Call<com.br.arley.sact.model.Response> call, Throwable t) {
+                Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("ERROR", t.toString());
+            }
+        });
+        /*call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()){
@@ -149,15 +171,16 @@ public class RatingFormActivity extends AppCompatActivity {
                 }
                 Toast.makeText(RatingFormActivity.this, "Sucesso", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(RatingFormActivity.this, ProjectsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("ERROR", t.toString());
             }
-        });
+        });*/
 
     }
 

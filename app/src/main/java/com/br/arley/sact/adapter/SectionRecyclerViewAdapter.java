@@ -61,7 +61,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         holder.tvNumber.setText(String.format("%s.", Integer.toString(position + 1)));
 
         holder.rvCriterion.setLayoutManager(new LinearLayoutManager(context));
-        criterionRecyclerViewAdapter = new CriterionRecyclerViewAdapter(sectionList.get(position).getCriterionList());
+        criterionRecyclerViewAdapter = new CriterionRecyclerViewAdapter(sectionList.get(position).getCriterionList(), context);
 
         holder.rvCriterion.setAdapter(criterionRecyclerViewAdapter);
 

@@ -22,6 +22,7 @@ import com.br.arley.sact.model.Project;
 import com.br.arley.sact.model.SactServer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,15 +57,6 @@ public class ProjectsActivity extends AppCompatActivity {
 
 
         projectList = new ArrayList<>();
-
-        /*String members = "Arley Novais, Klinsman Maia, Debora Colhyer";
-
-        for (int i = 0; i < 10; i++){
-            Project p = new Project("PalmPlay","3CI", "Informática", members);
-            projectList.add(p);
-        }
-
-        buildRecyclerView(projectList);*/
 
 
     }
@@ -110,6 +102,9 @@ public class ProjectsActivity extends AppCompatActivity {
     }
 
     void buildRecyclerView(List<Avaliation> avaliationList){
+
+        Collections.sort(avaliationList);
+
         recyclerViewProjects.setLayoutManager(new LinearLayoutManager(this));
         projectAdapter = new ProjectRecyclerViewAdapter(avaliationList, ProjectsActivity.this);
 
@@ -128,6 +123,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
             }
         });
+
 
         recyclerViewProjects.setAdapter(projectAdapter);
 

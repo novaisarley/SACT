@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 @Entity
-public class Avaliation implements Parcelable {
+public class Avaliation implements Parcelable, Comparable<Avaliation>{
 
     @PrimaryKey(autoGenerate = false)
     private String id;
@@ -36,6 +36,11 @@ public class Avaliation implements Parcelable {
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
     private String updatedAt;
+
+    public Avaliation(String id, String status){
+        this.status = status;
+        this.id = id;
+    }
 
 
     protected Avaliation(Parcel in) {
@@ -135,13 +140,18 @@ public class Avaliation implements Parcelable {
     @Override
     public String toString() {
         return "Avaliation{" +
-                "id='" + id + '\'' +
+                "id='" + id + '\'' +/*
                 ", evaluatorId='" + evaluatorId + '\'' +
                 ", projectId='" + projectId + '\'' +
                 ", project=" + project +
                 ", status='" + status + '\'' +
                 ", createdAt='" + createdAt + '\'' +
-                ", updatedAt='" + updatedAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +*/
                 '}';
+    }
+
+    @Override
+    public int compareTo(Avaliation o) {
+        return this.status.equals("rated") ? 1 : this.status.equals("to_evaluate") ? -1 : 0;
     }
 }

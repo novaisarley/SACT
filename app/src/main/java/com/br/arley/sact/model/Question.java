@@ -1,5 +1,7 @@
 package com.br.arley.sact.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Question {
 
     String id;
@@ -8,9 +10,17 @@ public class Question {
 
     String criterion;
 
-    String created_at;
+    @SerializedName("min_grade")
+    float minGrade;
 
-    String updated_at;
+    @SerializedName("max_grade")
+    float maxGrade;
+
+    @SerializedName("created_at")
+    String createdAt;
+
+    @SerializedName("updated_at")
+    String updatedAt;
 
     public Question(){}
 
@@ -39,20 +49,36 @@ public class Question {
         this.criterion = criterion;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getUpdated_at() {
-        return updated_at;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public float getMinGrade() {
+        return minGrade;
+    }
+
+    public void setMinGrade(float minGrade) {
+        this.minGrade = minGrade;
+    }
+
+    public float getMaxGrade() {
+        return maxGrade;
+    }
+
+    public void setMaxGrade(float maxGrade) {
+        this.maxGrade = maxGrade;
     }
 
     @Override
@@ -61,8 +87,10 @@ public class Question {
                 "  id='" + id + "'\n" +
                 ", section='" + section + "'\n" +
                 ", criterion='" + criterion + "'\n" +
-                ", created_at='" + created_at + "'\n" +
-                ", updated_at='" + updated_at + "'\n" +
+                ", min_grade='" + minGrade + "'\n" +
+                ", max_grade='" + maxGrade + "'\n" +
+                ", created_at='" + createdAt + "'\n" +
+                ", updated_at='" + updatedAt + "'\n" +
                 "}\n";
     }
 }

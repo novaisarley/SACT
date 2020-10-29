@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.br.arley.sact.R;
 import com.br.arley.sact.model.Avaliation;
+import com.br.arley.sact.model.Constants;
 import com.br.arley.sact.model.Project;
 
 import java.util.ArrayList;
@@ -88,10 +89,10 @@ public class ProjectRecyclerViewAdapter extends RecyclerView.Adapter<ProjectRecy
         holder.tvClassroom.setText(avaliationList.get(position).getProject().getClassroom());
         holder.tvCourse.setText(avaliationList.get(position).getProject().getOccupationArea());
 
-        if (avaliationList.get(position).getStatus().equals("rated")){
+        if (avaliationList.get(position).getStatus().equals(Constants.RATED)){
             holder.tvName.setBackground(ContextCompat.getDrawable(context, R.drawable.caixa_subject_green));
         }
-        else if(avaliationList.get(position).getStatus().equals("to_evaluate")){
+        else if(avaliationList.get(position).getStatus().equals(Constants.TO_EVALUATE)){
             holder.tvName.setBackground(ContextCompat.getDrawable(context, R.drawable.caixa_subject_blue));
         }
 

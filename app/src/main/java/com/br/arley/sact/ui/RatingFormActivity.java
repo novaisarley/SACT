@@ -76,16 +76,6 @@ public class RatingFormActivity extends AppCompatActivity {
         sectionList = new ArrayList<>();
         criterionList = new ArrayList<>();
 
-        for (int j = 0; j < 2; j++) {
-            Criterion c = new Criterion("6.0", "1.1. Oralidade");
-            criterionList.add(c);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            Section s = new Section("Apresentacao", criterionList);
-            sectionList.add(s);
-        }
-
     }
 
     private void setComponentsListeners() {
@@ -137,7 +127,6 @@ public class RatingFormActivity extends AppCompatActivity {
     void createSetOfGrades(String token, GradeData gradeData) {
         Call<com.br.arley.sact.model.Response> call = sactServer.createSetOfGrades(token, gradeData);
 
-
         call.enqueue(new Callback<com.br.arley.sact.model.Response>() {
             @Override
             public void onResponse(Call<com.br.arley.sact.model.Response> call, Response<com.br.arley.sact.model.Response> response) {
@@ -161,26 +150,6 @@ public class RatingFormActivity extends AppCompatActivity {
                 Log.e("ERROR", t.toString());
             }
         });
-        /*call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (!response.isSuccessful()){
-                    Toast.makeText(RatingFormActivity.this, "Code: " + response.code() + response.message()
-                            , Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(RatingFormActivity.this, "Sucesso", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(RatingFormActivity.this, ProjectsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("ERROR", t.toString());
-            }
-        });*/
 
     }
 
@@ -227,7 +196,8 @@ public class RatingFormActivity extends AppCompatActivity {
 
             for (int i = 0; i < questionList.size(); i++) {
                 if (questionList.get(i).getSection().equals(q.getSection())) {
-                    Criterion c = new Criterion(questionList.get(i).getId(), questionList.get(i).getCriterion());
+                    Criterion c = new Criterion(questionList.get(i).getId(), questionList.get(i).getCriterion()
+                            , questionList.get(i).getMinGrade(), questionList.get(i).getMaxGrade());
                     criterionList.add(c);
                     //questionList.remove(i);
                 }

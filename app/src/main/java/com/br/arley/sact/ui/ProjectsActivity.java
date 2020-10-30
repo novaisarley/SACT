@@ -1,5 +1,6 @@
 package com.br.arley.sact.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -80,6 +85,11 @@ public class ProjectsActivity extends AppCompatActivity {
                 List<Avaliation> avaliationsList = response.body();
 
                 if (!avaliationsList.isEmpty()){
+                    int cont = 0;
+                    for (Avaliation a : avaliationsList){
+                        if (a.getStatus().equals(Constants.RATED)) cont++;
+                    }
+                    if (cont == avaliationsList.size()) showAllEvaluationDoneDialog();
                     buildRecyclerView(avaliationsList);
                 }
                 else {
@@ -151,6 +161,27 @@ public class ProjectsActivity extends AppCompatActivity {
         return value;
     }
 
+    void showAllEvaluationDoneDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_all_evaluation_done, null);
+        Button btnOk = (Button) mView.findViewById(R.id.dialog_all_evaluation_done_bt_ok);
+        mBuilder.setCancelable(false);
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+
+        });
+        dialog.show();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -164,7 +195,5 @@ public class ProjectsActivity extends AppCompatActivity {
         String id = getEspecifcUserPref(getString(R.string.current_evaluator_id));
         String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
         getAvaluations(id, token);
-
-
     }
 }

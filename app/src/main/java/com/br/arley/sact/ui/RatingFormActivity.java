@@ -1,5 +1,6 @@
 package com.br.arley.sact.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,18 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.br.arley.sact.R;
 import com.br.arley.sact.adapter.SectionRecyclerViewAdapter;
 import com.br.arley.sact.model.Avaliation;
-import com.br.arley.sact.model.Constants;
 import com.br.arley.sact.model.Grade;
 import com.br.arley.sact.model.GradeData;
 import com.br.arley.sact.model.Question;
@@ -30,12 +35,10 @@ import com.br.arley.sact.model.Criterion;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RatingFormActivity extends AppCompatActivity {
 
@@ -62,9 +65,10 @@ public class RatingFormActivity extends AppCompatActivity {
         setComponents();
 
         progressBar.setVisibility(View.VISIBLE);
-        btConclude.setClickable(false);
 
         setComponentsListeners();
+
+        btConclude.setClickable(false);
 
         RetrofitConfig retrofitConfig = RetrofitConfig.getInstance();
         sactServer = retrofitConfig.getSactServer();
@@ -98,6 +102,8 @@ public class RatingFormActivity extends AppCompatActivity {
                 createSetOfGrades("Bearer " + token, gradeData);
 
                 Log.d("Grade", gradeData.toString());
+
+
             }
         });
 
@@ -137,16 +143,15 @@ public class RatingFormActivity extends AppCompatActivity {
                     return;
 
                 }
-                Toast.makeText(RatingFormActivity.this, "Sucesso", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(RatingFormActivity.this, ProjectsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                showAvaliationStatusDialog(R.drawable.sucesso, getResources().getString(R.string.SUCESSO_AVALIACAO));
+
 
             }
 
             @Override
             public void onFailure(Call<com.br.arley.sact.model.Response> call, Throwable t) {
                 Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                showAvaliationStatusDialog(R.drawable.erro, getResources().getString(R.string.ERRO_AVALIACAO));
                 Log.e("ERROR", t.toString());
             }
         });
@@ -183,6 +188,37 @@ public class RatingFormActivity extends AppCompatActivity {
 
         return value;
     }
+    void showAvaliationStatusDialog(int drawable, String statusMessage) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_status_avaliation, null);
+
+        Button btnOk = (Button) mView.findViewById(R.id.dialog_status_avaliation_bt_ok);
+        ImageView imgStatus = (ImageView) mView.findViewById(R.id.dialog_status_avaliation_iv_status);
+        TextView tvMessage = (TextView) mView.findViewById(R.id.dialog_status_avaliation_tv_message);
+
+        imgStatus.setImageDrawable(getResources().getDrawable(drawable));
+        tvMessage.setText(statusMessage);
+
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog = mBuilder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(RatingFormActivity.this, ProjectsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+
+        });
+        dialog.show();
+    }
+
 
     void organizeQuestions(List<Question> questions) {
         List<Question> questionList = questions;

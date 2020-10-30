@@ -13,4 +13,6 @@
     <string name="pref_key">app_preferences</string>
     <string name="current_evaluator_token">TOKEN_CURRENT</string>
     <string name="current_evaluator_id">USER_ID_CURRENT</string>
+    <string name="SUCESSO_AVALIACAO">A avaliação do projeto foi realizada com sucesso!</string>
+    <string name="ERRO_AVALIACAO">Ocorreu um erro no envio da avaliação</string>
 </resources>

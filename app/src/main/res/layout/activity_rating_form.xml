@@ -95,16 +95,6 @@
         app:layout_constraintGuide_percent="0.13" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_rating_form_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_rating_form_bt_conclude"
-        app:layout_constraintEnd_toStartOf="@+id/guideline43"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline41" />
-
     <Button
         android:id="@+id/activity_rating_form_bt_conclude"
         android:layout_width="0dp"
@@ -139,6 +129,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_rating_form_bt_conclude"
+        app:layout_constraintEnd_toStartOf="@+id/guideline43"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline41">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_rating_form_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comentário"
+                android:fontFamily="@font/seguisb"
+                android:textColor="@color/textGray"
+                android:textSize="28sp"/>
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiAutoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="150dp"
+                android:gravity="start|top"
+                android:padding="15dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/borda_event"
+                android:hint="(Opcional)" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

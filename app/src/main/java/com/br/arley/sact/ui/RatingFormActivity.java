@@ -150,8 +150,8 @@ public class RatingFormActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<com.br.arley.sact.model.Response> call, Throwable t) {
-                Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 showAvaliationStatusDialog(R.drawable.erro, getResources().getString(R.string.ERRO_AVALIACAO));
+                Toast.makeText(RatingFormActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("ERROR", t.toString());
             }
         });

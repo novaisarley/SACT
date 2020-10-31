@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (!isConnectedToInternet()){
+            showNoInternetDialog();
+        }
+
         btLogin = findViewById(R.id.activty_login_bt_login);
         edtEmail = findViewById(R.id.activty_login_edt_email);
         pb = findViewById(R.id.progressBar_login);
@@ -70,10 +76,15 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!emailS.trim().isEmpty()) {
                     if (emailS.contains("@")) {
-                        btLogin.setClickable(false);
-                        pb.setVisibility(View.VISIBLE);
-                        email.setEmail(emailS);
-                        authenticateUser(email);
+                        if (isConnectedToInternet()){
+                            btLogin.setClickable(false);
+                            pb.setVisibility(View.VISIBLE);
+                            email.setEmail(emailS);
+                            authenticateUser(email);
+                        }else {
+                            showNoInternetDialog();
+                        }
+
                     } else {
                         Toast.makeText(LoginActivity.this, "Email Inválido", Toast.LENGTH_SHORT).show();
                     }
@@ -155,6 +166,37 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
 
+        });
+        dialog.show();
+    }
+
+    private boolean isConnectedToInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        return isConnected;
+    }
+
+    void showNoInternetDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_no_wifi, null);
+
+        Button btnOk = (Button) mView.findViewById(R.id.dialog_no_wifi_bt_ok);
+
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog = mBuilder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
         });
         dialog.show();
     }

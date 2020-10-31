@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -58,8 +60,6 @@ public class ProjectsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar_projects);
 
         //database = AppDatabase.getInstance(ProjectsActivity.this);
-
-
 
         projectList = new ArrayList<>();
 
@@ -123,9 +123,13 @@ public class ProjectsActivity extends AppCompatActivity {
             public void onProjectClick(int position) {
 
                 if (avaliationList.get(position).getStatus().equals("to_evaluate")){
-                    Intent intent = new Intent(ProjectsActivity.this, ProjectInfoActivity.class);
-                    intent.putExtra("avaliation", avaliationList.get(position));
-                    startActivity(intent);
+                    if (isConnectedToInternet()){
+                        Intent intent = new Intent(ProjectsActivity.this, ProjectInfoActivity.class);
+                        intent.putExtra("avaliation", avaliationList.get(position));
+                        startActivity(intent);
+                    }else {
+                        showNoInternetDialog();
+                    }
                 }else if (avaliationList.get(position).getStatus().equals("rated")){
                     Toast.makeText(ProjectsActivity.this, "Projeto já avaliado!"
                             , Toast.LENGTH_LONG).show();
@@ -133,7 +137,6 @@ public class ProjectsActivity extends AppCompatActivity {
 
             }
         });
-
 
         recyclerViewProjects.setAdapter(projectAdapter);
 
@@ -182,18 +185,55 @@ public class ProjectsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private boolean isConnectedToInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        return isConnected;
+    }
+
+    void showNoInternetDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_no_wifi, null);
+
+        Button btnOk = (Button) mView.findViewById(R.id.dialog_no_wifi_bt_ok);
+
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog = mBuilder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        sactServer = retrofit.create(SactServer.class);
+        if (isConnectedToInternet()){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(Constants.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
-        String id = getEspecifcUserPref(getString(R.string.current_evaluator_id));
-        String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
-        getAvaluations(id, token);
+            sactServer = retrofit.create(SactServer.class);
+
+            String id = getEspecifcUserPref(getString(R.string.current_evaluator_id));
+            String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
+            getAvaluations(id, token);
+        }else {
+            showNoInternetDialog();
+        }
+
     }
 }

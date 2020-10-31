@@ -10,11 +10,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -55,6 +58,7 @@ public class RatingFormActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +74,18 @@ public class RatingFormActivity extends AppCompatActivity {
 
         btConclude.setClickable(false);
 
-        RetrofitConfig retrofitConfig = RetrofitConfig.getInstance();
-        sactServer = retrofitConfig.getSactServer();
+        if (isConnectedToInternet()){
+            RetrofitConfig retrofitConfig = RetrofitConfig.getInstance();
+            sactServer = retrofitConfig.getSactServer();
 
-        String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
+            String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
 
-        getAllQuestions("Bearer " + token);
+            getAllQuestions("Bearer " + token);
+        }else {
+            showNoInternetDialog();
+        }
+
+
 
         sectionList = new ArrayList<>();
         criterionList = new ArrayList<>();
@@ -86,22 +96,28 @@ public class RatingFormActivity extends AppCompatActivity {
         btConclude.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Section> sections = sectionRecyclerViewAdapter.getSectionList();
-                List<Grade> grades = new ArrayList<>();
+                if (isConnectedToInternet()){
+                    List<Section> sections = sectionRecyclerViewAdapter.getSectionList();
+                    List<Grade> grades = new ArrayList<>();
+                    EditText edtComments;
+                    edtComments = findViewById(R.id.activity_rating_form_edt_comments);
 
-                GradeData gradeData = new GradeData(avaliation.getId());
-                for (Section s : sections) {
-                    for (Criterion c : s.getCriterionList()) {
-                        grades.add(new Grade(c.getId(), Float.parseFloat(c.getGrade())));
+                    GradeData gradeData = new GradeData(avaliation.getId());
+                    for (Section s : sections) {
+                        for (Criterion c : s.getCriterionList()) {
+                            grades.add(new Grade(c.getId(), Float.parseFloat(c.getGrade())));
+                        }
                     }
+                    gradeData.setComments(edtComments.getText().toString().trim() + " ");
+                    gradeData.setGrades(grades);
+
+                    String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
+                    createSetOfGrades("Bearer " + token, gradeData);
+
+                    //Log.d("Grade", gradeData.toString());
+                }else {
+                    showNoInternetDialog();
                 }
-                gradeData.setComments(" ");
-                gradeData.setGrades(grades);
-
-                String token = getEspecifcUserPref(getString(R.string.current_evaluator_token));
-                createSetOfGrades("Bearer " + token, gradeData);
-
-                Log.d("Grade", gradeData.toString());
 
 
             }
@@ -144,8 +160,6 @@ public class RatingFormActivity extends AppCompatActivity {
 
                 }
                 showAvaliationStatusDialog(R.drawable.sucesso, getResources().getString(R.string.SUCESSO_AVALIACAO));
-
-
             }
 
             @Override
@@ -170,7 +184,7 @@ public class RatingFormActivity extends AppCompatActivity {
 
                     return;
                 }
-                Log.d("Questions", response.body().toString());
+                //Log.d("Questions", response.body().toString());
                 organizeQuestions(response.body());
             }
 
@@ -188,6 +202,7 @@ public class RatingFormActivity extends AppCompatActivity {
 
         return value;
     }
+
     void showAvaliationStatusDialog(int drawable, String statusMessage) {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
 
@@ -200,6 +215,7 @@ public class RatingFormActivity extends AppCompatActivity {
         imgStatus.setImageDrawable(getResources().getDrawable(drawable));
         tvMessage.setText(statusMessage);
 
+        mBuilder.setCancelable(false);
         mBuilder.setView(mView);
 
         final AlertDialog dialog = mBuilder.create();
@@ -219,11 +235,40 @@ public class RatingFormActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private boolean isConnectedToInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        return isConnected;
+    }
+
+    void showNoInternetDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_no_wifi, null);
+
+        Button btnOk = (Button) mView.findViewById(R.id.dialog_no_wifi_bt_ok);
+
+        mBuilder.setView(mView);
+
+        final AlertDialog dialog = mBuilder.create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
     void organizeQuestions(List<Question> questions) {
         List<Question> questionList = questions;
         List<Section> sections = new ArrayList<>();
-//      List<Criterion> criterions = new ArrayList<>();
 
         for (Question q : questionList) {
 
@@ -235,14 +280,12 @@ public class RatingFormActivity extends AppCompatActivity {
                     Criterion c = new Criterion(questionList.get(i).getId(), questionList.get(i).getCriterion()
                             , questionList.get(i).getMinGrade(), questionList.get(i).getMaxGrade());
                     criterionList.add(c);
-                    //questionList.remove(i);
                 }
             }
 
             s.setCriterionList(criterionList);
             sections.add(s);
         }
-
 
         List<Section> listSemRepetidos = new ArrayList<>();
 
@@ -256,7 +299,6 @@ public class RatingFormActivity extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         btConclude.setClickable(true);
 
-        Log.d("Sections", listSemRepetidos.toString());
-
+        //Log.d("Sections", listSemRepetidos.toString());
     }
 }

@@ -8,6 +8,6 @@
     <color name="buttonBlue">#0000fb</color>
     <color name="gradDarkBlue">#0303f8</color>
     <color name="gradLightBlue">#36bfd5</color>
-    <color name="gradDarkGreen">#00fc08</color>
-    <color name="gradLightGreen">#aeffb0</color>
+    <color name="gradDarkGreen">#0A930E</color>
+    <color name="gradLightGreen">#A5FFA8</color>
 </resources>

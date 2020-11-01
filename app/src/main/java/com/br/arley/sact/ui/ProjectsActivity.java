@@ -2,6 +2,7 @@ package com.br.arley.sact.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,7 @@ public class ProjectsActivity extends AppCompatActivity {
     RecyclerView recyclerViewProjects;
     ProjectRecyclerViewAdapter projectAdapter;
     List<Project> projectList;
+    ConstraintLayout noProjectsImg;
     Retrofit retrofit;
     SactServer sactServer;
     ProgressBar progressBar;
@@ -56,6 +58,8 @@ public class ProjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_projects);
 
         setComponentsId();
+
+        noProjectsImg.setVisibility(View.INVISIBLE);
 
         progressBar = findViewById(R.id.progressBar_projects);
 
@@ -86,6 +90,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
                 if (!avaliationsList.isEmpty()){
                     int cont = 0;
+                    noProjectsImg.setVisibility(View.INVISIBLE);
                     for (Avaliation a : avaliationsList){
                         if (a.getStatus().equals(Constants.RATED)) cont++;
                     }
@@ -96,6 +101,7 @@ public class ProjectsActivity extends AppCompatActivity {
                     Toast.makeText(ProjectsActivity.this, "Nenhum projeto atribuído ao avaliador"
                             , Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.INVISIBLE);
+                    noProjectsImg.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -109,6 +115,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
     void setComponentsId(){
         recyclerViewProjects = findViewById(R.id.activity_projects_recycler_view);
+        noProjectsImg = findViewById(R.id.activity_projects_no_projects);
     }
 
     void buildRecyclerView(List<Avaliation> avaliationList){

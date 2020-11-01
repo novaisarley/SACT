@@ -85,8 +85,6 @@ public class RatingFormActivity extends AppCompatActivity {
             showNoInternetDialog();
         }
 
-
-
         sectionList = new ArrayList<>();
         criterionList = new ArrayList<>();
 

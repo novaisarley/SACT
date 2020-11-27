@@ -116,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
                 String id = authData.getEvaluator().getId();
 
                 //GUARDAR AVALIADOR
-                setLoginStatus(true);
-                setCurrentUserPref(token, id);
+                //setLoginStatus(true);
+                //setCurrentUserPref(token, id);
                 pb.setVisibility(View.INVISIBLE);
                 startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
 
